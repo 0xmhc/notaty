@@ -17,6 +17,9 @@ app.post("/notes", (req, res) => {
   res.send(true);
   console.log(notes);
 });
+app.get("/notes", (req, res) => {
+  res.send(notes);
+});
 const port = 3000;
 app.listen(port, () => {
   console.log(`server has started on port ${port}`);
