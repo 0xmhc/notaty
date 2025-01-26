@@ -12,9 +12,10 @@ const notes = [];
 
 app.post("/notes", (req, res) => {
   const data = req.body;
-  console.log(`Body: ${body}`);
+  console.log(`Body: ${data}`);
   notes.push(data.title);
   res.send(true);
+  console.log(notes);
 });
 const port = 3000;
 app.listen(port, () => {
