@@ -11,7 +11,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 const notes = [];
 
 app.post("/notes", (req, res) => {
-  const data = req.body();
+  const data = req.body;
   console.log(`Body: ${body}`);
   notes.push(data.title);
   res.send(true);
