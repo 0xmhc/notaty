@@ -18,7 +18,9 @@ app.post("/notes", (req, res) => {
     .catch((err) => res.status(500).send(err));
 });
 app.get("/notes", (req, res) => {
-  res.send(notes);
+  db.getNotes()
+    .then((data) => res.send(data))
+    .catch((err) => res.status(500).send(err));
 });
 const port = 3000;
 app.listen(port, () => {
