@@ -18,7 +18,14 @@ class Database {
       let newNote = new Note(note);
       newNote
         .save()
-        .then((doc) => resolve(doc))
+        .then((data) => resolve(data))
+        .catch((err) => reject(err));
+    });
+  }
+  getNotes() {
+    return new Promise((resolve, reject) => {
+      Note.find({})
+        .then((data) => resolve(data))
         .catch((err) => reject(err));
     });
   }
