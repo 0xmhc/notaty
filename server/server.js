@@ -4,18 +4,18 @@ const bodyParser = require("body-parser");
 
 const app = express();
 
+const Database = require("./Database");
+const db = new Database();
+
 app.use(cors());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
-const notes = [];
-
 app.post("/notes", (req, res) => {
   const data = req.body;
-  console.log(`Body: ${data}`);
-  notes.push(data.title);
-  res.send(true);
-  console.log(notes);
+  db.addNote(data)
+    .then((doc) => res.send(doc))
+    .catch((err) => res.status(500).send(err));
 });
 app.get("/notes", (req, res) => {
   res.send(notes);
@@ -23,4 +23,5 @@ app.get("/notes", (req, res) => {
 const port = 3000;
 app.listen(port, () => {
   console.log(`server has started on port ${port}`);
+  db.connect();
 });
