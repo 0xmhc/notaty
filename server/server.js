@@ -22,6 +22,18 @@ app.get("/notes", (req, res) => {
     .then((data) => res.send(data))
     .catch((err) => res.status(500).send(err));
 });
+app.get("/note/:id", (req, res) => {
+  const { id } = req.params;
+  db.getNoteById(id)
+    .then((data) => {
+      if (!data) {
+        res.status(404).send("id Not Found ", id);
+      } else {
+        res.send(data);
+      }
+    })
+    .catch((err) => res.status(500).send(err));
+});
 const port = 3000;
 app.listen(port, () => {
   console.log(`server has started on port ${port}`);
