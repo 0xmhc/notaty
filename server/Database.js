@@ -29,6 +29,13 @@ class Database {
         .catch((err) => reject(err));
     });
   }
+  getNoteById(id) {
+    return new Promise((resolve, reject) => {
+      Note.findById(id)
+        .then((data) => resolve(data))
+        .catch((err) => reject(err));
+    });
+  }
 }
 
 module.exports = Database;
