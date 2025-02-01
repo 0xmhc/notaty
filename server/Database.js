@@ -36,6 +36,14 @@ class Database {
         .catch((err) => reject(err));
     });
   }
+  updateNote(note) {
+    note["updatedDate"] = new Date();
+    return new Promise((resolve, reject) =>
+      Note.findByIdAndUpdate(note["_id"], note)
+        .then((data) => resolve(data))
+        .catch((err) => reject(err))
+    );
+  }
 }
 
 module.exports = Database;
