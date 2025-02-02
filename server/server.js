@@ -45,6 +45,18 @@ app.put("/notes", (req, res) => {
     })
     .catch((err) => res.status(500).send(err));
 });
+app.delete("/note/:id", (req, res) => {
+  const { id } = req.params;
+  db.deleteNote(id)
+    .then((data) => {
+      if (!data) {
+        res.status(404).send("id Not Found ", id);
+      } else {
+        res.send(data);
+      }
+    })
+    .catch((err) => res.status(500).send(err));
+});
 const port = 3000;
 app.listen(port, () => {
   console.log(`server has started on port ${port}`);
