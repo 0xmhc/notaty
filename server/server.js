@@ -18,11 +18,18 @@ app.post("/notes", (req, res) => {
     .catch((err) => res.status(500).send(err));
 });
 app.get("/notes", (req, res) => {
-  db.getNotes()
-    .then((data) => res.send(data))
-    .catch((err) => res.status(500).send(err));
+  const { title } = req.query;
+  if (title) {
+    db.getNotesByTitle(title)
+      .then((data) => res.send(data))
+      .catch((err) => res.status(500).send(err));
+  } else {
+    db.getNotes()
+      .then((data) => res.send(data))
+      .catch((err) => res.status(500).send(err));
+  }
 });
-app.get("/note/:id", (req, res) => {
+app.get("/notes/:id", (req, res) => {
   const { id } = req.params;
   db.getNoteById(id)
     .then((data) => {
@@ -45,7 +52,7 @@ app.put("/notes", (req, res) => {
     })
     .catch((err) => res.status(500).send(err));
 });
-app.delete("/note/:id", (req, res) => {
+app.delete("/notes/:id", (req, res) => {
   const { id } = req.params;
   db.deleteNote(id)
     .then((data) => {
